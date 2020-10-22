@@ -27,7 +27,6 @@ public class ProductController {
     @Autowired
     private ProductDao productDao;
 
-
     //Récupérer la liste des produits
 
     @RequestMapping(value = "/Produits", method = RequestMethod.GET)
@@ -47,7 +46,6 @@ public class ProductController {
         return produitsFiltres;
     }
 
-
     //Récupérer un produit par son Id
     @ApiOperation(value = "Récupère un produit grâce à son ID à condition que celui-ci soit en stock!")
     @GetMapping(value = "/Produits/{id}")
@@ -60,9 +58,6 @@ public class ProductController {
 
         return produit;
     }
-
-
-
 
     //ajouter un produit
     @PostMapping(value = "/Produits")
@@ -103,6 +98,17 @@ public class ProductController {
         return productDao.chercherUnProduitCher(400);
     }
 
-
+    @GetMapping(value="/AdminProduits")
+    public String calculerMargeProduit(){
+        List<Product> products = productDao.findAll();
+        int ecartTMP=0;
+        String TMP="";
+        for(Product p:products)
+        {
+            ecartTMP = p.getPrix()- p.getPrixAchat();
+            TMP+=p.toString()+" : "+ecartTMP+"<br>";
+        }
+        return TMP;
+    }
 
 }
