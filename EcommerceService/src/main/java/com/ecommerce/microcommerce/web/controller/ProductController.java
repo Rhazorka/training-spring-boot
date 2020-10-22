@@ -2,6 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
+import com.ecommerce.microcommerce.web.exceptions.ProduitGratuitException;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -16,7 +17,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.text.Collator;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 
 @Api( description="API pour es opérations CRUD sur les produits.")
@@ -68,7 +73,9 @@ public class ProductController {
 
         if (productAdded == null)
             return ResponseEntity.noContent().build();
-
+        if (productAdded.getPrix()==0){
+            throw new ProduitGratuitException("Le produit avec l'id " + productAdded.getId() + " a un prix égale a zéro");
+        }
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -86,7 +93,9 @@ public class ProductController {
 
     @PutMapping (value = "/Produits")
     public void updateProduit(@RequestBody Product product) {
-
+        if (product.getPrix()==0) {
+            throw new ProduitGratuitException("Le produit avec l'id " + product.getId() + " a un prix égale a zéro");
+        }
         productDao.save(product);
     }
 
@@ -109,6 +118,19 @@ public class ProductController {
             TMP+=p.toString()+" : "+ecartTMP+"<br>";
         }
         return TMP;
+    }
+
+    @GetMapping(value = "/AdminProduitsSorted")
+    public List<Product> trierProduitsParOrdreAlphabetique(){
+        List<Product> products = productDao.findAll();
+        Collator collatorProduct = Collator.getInstance(Locale.FRENCH);
+        Collections.sort(products, new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return collatorProduct.compare(o1.getNom(), o2.getNom());
+            }
+        });
+        return products;
     }
 
 }
