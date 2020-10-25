@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="microcommerce" />
+        <module name="Cicuit-Breaker-Serivce" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Cicuit-Breaker-Serivce" target="1.8" />
       <module name="microcommerce" target="1.8" />
     </bytecodeTargetLevel>
   </component>

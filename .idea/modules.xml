@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/circuitbreaker/Cicuit-Breaker-Serivce.iml" filepath="$PROJECT_DIR$/circuitbreaker/Cicuit-Breaker-Serivce.iml" />
       <module fileurl="file://$PROJECT_DIR$/EcommerceService/microcommerce.iml" filepath="$PROJECT_DIR$/EcommerceService/microcommerce.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/training-spring-boot.iml" filepath="$PROJECT_DIR$/.idea/training-spring-boot.iml" />
     </modules>
