@@ -33,6 +33,7 @@ public class ProductController {
     private ProductDao productDao;
 
     //Récupérer la liste des produits
+    @ApiOperation(value = "Récupère la liste des produis")
     @RequestMapping(value = "/Produits", method = RequestMethod.GET)
     public MappingJacksonValue listeProduits() {
 
@@ -62,6 +63,7 @@ public class ProductController {
     }
 
     //ajouter un produit
+    @ApiOperation(value = "Pour ajouter un produit")
     @PostMapping(value = "/Produits")
     public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
 
@@ -80,13 +82,13 @@ public class ProductController {
 
         return ResponseEntity.created(location).build();
     }
-
+    @ApiOperation(value = "Pour supprimer un produit")
     @DeleteMapping (value = "/Produits/{id}")
     public void supprimerProduit(@PathVariable int id) {
 
         productDao.delete(id);
     }
-
+    @ApiOperation(value = "Pour mettre à jour un produit")
     @PutMapping (value = "/Produits")
     public void updateProduit(@RequestBody Product product) {
         if (product.getPrix()==0) {
@@ -102,7 +104,7 @@ public class ProductController {
 
         return productDao.chercherUnProduitCher(prix);
     }
-
+    @ApiOperation(value = "Récupère la liste des produits est indique la marge de chacun d'eux")
     @GetMapping(value="/AdminProduits")
     public String calculerMargeProduit(){
         List<Product> products = productDao.findAll();
@@ -115,7 +117,7 @@ public class ProductController {
         }
         return TMP;
     }
-
+    @ApiOperation(value = "Récupère la liste des produits triés par ordre alphabétique")
     @GetMapping(value = "/AdminProduitsSorted")
     public List<Product> trierProduitsParOrdreAlphabetique(){
         List<Product> products = productDao.findAll();

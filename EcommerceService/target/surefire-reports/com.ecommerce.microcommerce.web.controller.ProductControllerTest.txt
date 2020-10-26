@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: com.ecommerce.microcommerce.web.controller.ProductControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0 sec <<< FAILURE! - in com.ecommerce.microcommerce.web.controller.ProductControllerTest
+testListeProduits(com.ecommerce.microcommerce.web.controller.ProductControllerTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.NullPointerException: null
+	at com.ecommerce.microcommerce.web.controller.ProductController.listeProduits(ProductController.java:39)
+	at com.ecommerce.microcommerce.web.controller.ProductControllerTest.testListeProduits(ProductControllerTest.java:26)
+
